@@ -595,14 +595,14 @@ void checkDate() {
   }
   }
 
-   if (mm >= 13) {
+   if (mm > 12) {
     mm = 1;
     dd = 1;
     refreshMonth = true;
     refreshDay = true;
   }
 
-  if (dd >= 32) {
+  if (dd > 31) {
     dd = 1;
     mm++;
     refreshMonth = true;
@@ -611,6 +611,8 @@ void checkDate() {
 
   delay(200);
 }
+
+
 
 void checkTemp(float t) {
   temperature = t * 100;
@@ -706,8 +708,10 @@ void loop() {
      {
         if (!set_time_h) {
           hour++;
+          if (hour > 23) hour = 0;
         } else if (!set_time_m) {
           minute++;
+          if (minute > 59) minute = 0;
         }
         
      break;
@@ -716,8 +720,10 @@ void loop() {
      {
         if (!set_time_h) {
           hour--;
+          if (hour < 0) hour = 23;
         } else if (!set_time_m) {
           minute--;
+          if (minute < 0) minute = 59;
         }
      break;
      
@@ -758,8 +764,11 @@ void loop() {
      {
      if (!set_date_m) {
           mm++;
+          if (mm > 12) mm = 1;
         } else if (!set_date_d) {
           dd++;
+          if (dd > 31) dd = 1;
+
         }
      break;
      }
@@ -767,8 +776,10 @@ void loop() {
      {
       if (!set_date_m) {
           mm--;
+          if (mm < 1) mm = 12;
         } else if (!set_date_d) {
           dd--;
+          if (dd < 1) dd = 31;
         }
      break;
      }
